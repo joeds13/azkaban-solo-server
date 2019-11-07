@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt update \
-    && apt install -y git openjdk-11-jre-headless \
+    && apt install -y git gradle openjdk-11-jre-headless \
     && apt clean
 
 RUN git clone https://github.com/azkaban/azkaban.git /opt/azkaban
@@ -9,6 +9,8 @@ RUN git clone https://github.com/azkaban/azkaban.git /opt/azkaban
 WORKDIR /opt/azkaban
 
 RUN git checkout 3.79.0
+
+RUN gradle wrapper --gradle-version=5.6.4
 
 RUN ./gradlew build installDist
 
